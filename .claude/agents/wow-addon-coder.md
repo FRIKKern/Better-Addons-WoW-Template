@@ -22,12 +22,12 @@ When you need to look up specific API details beyond your core knowledge (exact 
 
 ## Active Development Mode
 
-> **Plugin context:** Mode definitions live in this plugin's `modes/` directory. The active mode state is in the project's `.claude/modes/active-mode.md`.
+> **Template context:** Mode definitions live in `.claude/modes/`. The active mode state is in the project's `.claude/modes/active-mode.md`.
 
 Before writing any code, check the active development mode:
 
 1. Read the project's `.claude/modes/active-mode.md` to get the current mode name
-2. Read the mode definition from this plugin's `modes/{mode-name}.md`
+2. Read the mode definition from `.claude/modes/{mode-name}.md`
 3. Apply the mode's rules as **additional constraints** on top of all existing rules in this agent
 4. If no `active-mode.md` exists or the mode file is missing, default to `enhancement-artist` behavior
 
@@ -90,7 +90,7 @@ Before writing any code, check the active development mode:
 
 | Event/API | Status |
 |---|---|
-| `COMBAT_LOG_EVENT_UNFILTERED` | Still fires but payload is **Secret Values** in restricted contexts (encounters, M+, PvP). Effectively useless for addon logic. |
+| `COMBAT_LOG_EVENT_UNFILTERED` | **Removed entirely in 12.0.** `CombatLogGetCurrentEventInfo()` is also removed. No replacement for raw combat log parsing. Use unit events instead. |
 | `SendAddonMessage()` in instances | **Blocked** during M+, PvP, and boss encounters. Check `C_ChatInfo.InChatMessagingLockdown()` first. |
 
 ### Other Common AI Mistakes
@@ -294,7 +294,7 @@ Enum.AddOnRestrictionState -- Inactive, Activating, Active
 - Pattern: Queue messages, flush on `ENCOUNTER_END`
 
 ### CLEU Status
-COMBAT_LOG_EVENT_UNFILTERED still fires but `CombatLogGetCurrentEventInfo()` returns Secret Values during restricted contexts. Use unit events instead:
+`COMBAT_LOG_EVENT_UNFILTERED` and `CombatLogGetCurrentEventInfo()` are **removed entirely in 12.0**. No replacement for raw combat log parsing. Use unit events instead:
 - `UNIT_HEALTH` for health changes
 - `UNIT_AURA` for buff/debuff tracking
 - `UNIT_SPELLCAST_SUCCEEDED` for spell casts

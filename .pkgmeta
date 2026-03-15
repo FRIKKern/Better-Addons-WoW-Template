@@ -82,6 +82,8 @@ ignore:
   - CHANGELOG.md
   - CLAUDE.md
   - .cursorrules
+  - .claude
+  - setup.sh
   - tests/
 
 # ---- Manual Changelog ----

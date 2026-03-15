@@ -80,11 +80,11 @@ WoW uses **Lua 5.1 ONLY**. Flag any:
 Use `bit.band()`, `bit.bor()`, etc. for bitwise operations.
 
 #### C4. CLEU / Combat Log Registration
-`COMBAT_LOG_EVENT_UNFILTERED` still fires but returns Secret Values in restricted contexts. Flag any:
+`COMBAT_LOG_EVENT_UNFILTERED` and `CombatLogGetCurrentEventInfo()` are **removed entirely in 12.0**. Flag any:
 
-- `RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")` used for addon logic
-- `CombatLogGetCurrentEventInfo()` calls without secret value guards
-- Any code that parses CLEU return values as if they were real numbers
+- `RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")` — will silently do nothing
+- `CombatLogGetCurrentEventInfo()` calls — will error (nil function)
+- Any code that parses CLEU return values
 
 **Correct alternatives:** `UNIT_HEALTH`, `UNIT_AURA`, `UNIT_SPELLCAST_SUCCEEDED`, `UNIT_POWER_UPDATE`
 
@@ -286,7 +286,7 @@ Search for these patterns in all .lua files:
 
 ## Mode-Aware Review Criteria
 
-Read the project's `.claude/modes/active-mode.md` before reviewing, then load the mode definition from this plugin's `modes/{mode-name}.md`. If the project has no `.claude/modes/` directory, default to `enhancement-artist`. Apply mode-specific severity:
+Read the project's `.claude/modes/active-mode.md` before reviewing, then load the mode definition from `.claude/modes/{mode-name}.md`. If the project has no `.claude/modes/` directory, default to `enhancement-artist`. Apply mode-specific severity:
 
 - **blizzard-faithful**: Flag ANY hooksecurefunc on Blizzard frames as **CRITICAL**. Flag ANY metatable access on Blizzard objects as **CRITICAL**. Flag missing Settings API usage as HIGH.
 - **boundary-pusher**: Flag missing fallback paths as **HIGH**. Flag missing `-- BOUNDARY` comments as MEDIUM. Flag missing pcall wrappers around metatable access as HIGH.

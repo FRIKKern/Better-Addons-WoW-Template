@@ -34,12 +34,12 @@ Best for: addons running in raids, M+, or alongside many other addons.
 
 ## How Modes Work
 
-**Mode definitions** (the rules for each mode) live in this plugin's `modes/` directory.
+**Mode definitions** (the rules for each mode) live in `.claude/modes/`.
 **Active mode state** (`active-mode.md`) is stored in the project's `.claude/modes/` directory.
 
 When any WoW addon agent starts work, it:
 1. Reads the project's `.claude/modes/active-mode.md` to get the current mode name
-2. Reads the mode definition from this plugin's `modes/{mode-name}.md`
+2. Reads the mode definition from `.claude/modes/{mode-name}.md`
 3. If the project has no `.claude/modes/` directory, defaults to `enhancement-artist`
 
 Each mode definition file contains:

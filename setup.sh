@@ -79,6 +79,7 @@ FILES=(
     ".cursorrules"
     "CHANGELOG.md"
     "LICENSE"
+    "README.md"
 )
 
 # Only process files that exist

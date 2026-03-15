@@ -4,7 +4,7 @@ description: "Set the active development mode (Blizzard Faithful, Boundary Pushe
 
 Set WoW addon development mode: $ARGUMENTS
 
-> **Plugin context:** This command is part of the better-addons plugin. Mode definitions (blizzard-faithful.md, etc.) are in the plugin's own `modes/` directory. The active mode state (`active-mode.md`) is stored in the project's `.claude/modes/` directory.
+> Mode definitions (blizzard-faithful.md, etc.) are in `.claude/modes/`. The active mode state (`active-mode.md`) is also stored in `.claude/modes/`.
 
 You manage the addon development mode for this project. The mode system fundamentally changes how all WoW addon agents write, review, and scaffold code.
 
@@ -25,11 +25,11 @@ You manage the addon development mode for this project. The mode system fundamen
    - Resolve alias to canonical name (e.g., "safe" → "blizzard-faithful")
    - If the project's `.claude/modes/` directory doesn't exist, create it before writing
    - Write ONLY the canonical mode name to the project's `.claude/modes/active-mode.md` (overwrite entire file)
-   - Read the mode definition from the plugin's `modes/{canonical-name}.md` directory, and display a summary of the mode's philosophy and key rules
+   - Read the mode definition from `.claude/modes/{canonical-name}.md`, and display a summary of the mode's philosophy and key rules
 4. If invalid argument: Show available modes and aliases
 
 **Path resolution:**
-- **Mode definitions** (read-only): Look in this plugin's `modes/` directory (e.g., `modes/blizzard-faithful.md`)
+- **Mode definitions** (read-only): Look in `.claude/modes/` (e.g., `.claude/modes/blizzard-faithful.md`)
 - **Active mode state** (read/write): Always use the project's `.claude/modes/active-mode.md`
 
 ## Output Format

@@ -4,7 +4,7 @@ description: "Create a complete, ready-to-install WoW addon for Midnight 12.0+ f
 
 Create a WoW addon: $ARGUMENTS
 
-**Development Mode:** Before creating the addon, read the project's `.claude/modes/active-mode.md` to determine the active mode (default: `enhancement-artist`), then read the mode definition from this plugin's `modes/{mode-name}.md` for mode-specific rules. If the project's `.claude/modes/` directory doesn't exist, use the default mode. Pass the mode context to the Coder agent. The mode affects which patterns, APIs, and techniques are used in the generated code.
+**Development Mode:** Before creating the addon, read the project's `.claude/modes/active-mode.md` to determine the active mode (default: `enhancement-artist`), then read the mode definition from `.claude/modes/{mode-name}.md` for mode-specific rules. If `.claude/modes/` doesn't exist, use the default mode. Pass the mode context to the Coder agent. The mode affects which patterns, APIs, and techniques are used in the generated code.
 
 If the user includes a mode keyword in $ARGUMENTS (e.g., "create a **faithful** damage meter" or "create a **boundary** nameplate addon"), use that mode instead of the active mode. Keywords: faithful/blizzard/safe, boundary/aggressive/advanced, enhance/better/skin, performance/perf/fast.
 
@@ -24,11 +24,11 @@ Parse `$ARGUMENTS` for:
 ### Step 2: Read the Template
 
 Read these template files for patterns:
-- `template/MyAddon.toc` — TOC format and metadata
-- `template/Init.lua` — Namespace and initialization pattern
-- `template/Core.lua` — Event dispatch and main logic
-- `template/Config.lua` — Settings and SavedVariables
-- `template/CLAUDE.md` — API reference and conventions
+- `MyAddon.toc` — TOC format and metadata
+- `Init.lua` — Namespace and initialization pattern
+- `Core.lua` — Event dispatch and main logic
+- `Config.lua` — Settings and SavedVariables
+- `CLAUDE.md` — API reference and conventions
 
 ### Step 3: Research Required APIs
 
@@ -48,9 +48,16 @@ Create all files in a new directory named after the addon. Follow these MANDATOR
 ## Title: AddonName
 ## Notes: Description
 ## Author: [user]
-## Version: 1.0.0
+## Version: @project-version@
 ## SavedVariables: AddonNameDB
+## AddonCompartmentFunc: AddonName_OnCompartmentClick
+## AddonCompartmentFuncOnEnter: AddonName_OnCompartmentEnter
+## AddonCompartmentFuncOnLeave: AddonName_OnCompartmentLeave
 ## IconTexture: Interface\Icons\[appropriate-icon]
+## OptionalDeps: LibStub, CallbackHandler-1.0
+## X-Curse-Project-ID: 0
+## X-Wago-ID: CHANGEME
+## Category: Miscellaneous
 
 Init.lua
 Core.lua
@@ -59,38 +66,42 @@ Config.lua
 
 **Init.lua — Namespace Pattern (MANDATORY):**
 ```lua
-local ADDON_NAME, ns = ...
-ns.ADDON_NAME = ADDON_NAME
+local addonName, ns = ...
+ns.addonName = addonName
 
--- Shared state
-ns.db = {}
-ns.isLoaded = false
+-- Defaults (merged into SavedVariables on load)
+ns.defaults = {
+    enabled = true,
+}
 ```
 
 **Core.lua — Event Dispatch (MANDATORY):**
 ```lua
-local ADDON_NAME, ns = ...
+local addonName, ns = ...
 
-local frame = CreateFrame("Frame")
-local events = {}
+local eventFrame = CreateFrame("Frame")
+local eventHandlers = {}
 
-function events:ADDON_LOADED(addonName)
-    if addonName ~= ADDON_NAME then return end
+eventFrame:SetScript("OnEvent", function(self, event, ...)
+    local handler = eventHandlers[event]
+    if handler then handler(self, event, ...) end
+end)
+
+local function RegisterEvent(event, handler)
+    eventHandlers[event] = handler
+    eventFrame:RegisterEvent(event)
+end
+
+RegisterEvent("ADDON_LOADED", function(self, event, loadedAddon)
+    if loadedAddon ~= addonName then return end
+    eventHandlers["ADDON_LOADED"] = nil
+    eventFrame:UnregisterEvent("ADDON_LOADED")
     -- Initialize SavedVariables
-    AddonNameDB = AddonNameDB or {}
-    ns.db = AddonNameDB
-    ns.isLoaded = true
-    frame:UnregisterEvent("ADDON_LOADED")
-end
-
--- Register and dispatch
-for event in pairs(events) do
-    frame:RegisterEvent(event)
-end
-frame:SetScript("OnEvent", function(self, event, ...)
-    if events[event] then
-        events[event](self, ...)
+    if not AddonNameDB then AddonNameDB = {} end
+    for k, v in pairs(ns.defaults) do
+        if AddonNameDB[k] == nil then AddonNameDB[k] = v end
     end
+    ns.db = AddonNameDB
 end)
 ```
 
@@ -167,7 +178,7 @@ Copy the `[Name]` folder to `World of Warcraft/_retail_/Interface/AddOns/`
 
 - NEVER use deprecated functions. Always use the C_ namespace replacements.
 - NEVER hallucinate API functions. If unsure, research first.
-- ALWAYS use the namespace pattern (`local ADDON_NAME, ns = ...`)
+- ALWAYS use the namespace pattern (`local addonName, ns = ...`)
 - ALWAYS use the event dispatch table pattern
 - ALWAYS guard combat data with `issecretvalue()` if the addon operates during encounters
 - ALWAYS set Interface to `120001`

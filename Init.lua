@@ -267,7 +267,7 @@ RegisterEvent("PLAYER_LOGIN", function(self, event)
     -- ---- Welcome Message ----
     if ns.db.showWelcome then
         print(format("|cff33ff99%s|r: Type |cffffd100/%s|r for options.",
-            addonName, "myaddon"))
+            addonName, strlower(addonName)))
     end
 end)
 

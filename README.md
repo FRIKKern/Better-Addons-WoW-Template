@@ -1,29 +1,36 @@
-# WoW Addon Template — Midnight 12.0+
+# Better Addons WoW Template — Midnight 12.0+
 
 > Clone. Rename. Code. Tag. Ship. A production-ready WoW addon starter with CI/CD that packages and uploads to CurseForge, Wago, and WoWInterface automatically.
 
 ## Quickstart
 
+**One command** — clone, rename all files/globals/TOC metadata, fresh git history:
+
 ```bash
-# 1. Clone the template
-git clone https://github.com/FRIKKern/WoW-Addon-Template.git MyAddonName
-cd MyAddonName
-
-# 2. Rename everything (requires Claude Code + better-addons plugin)
-#    This renames files, globals, TOC metadata, and all internal references.
-/wow-setup MyAddonName "Your Name" "Short description of your addon"
-
-# 3. Code your addon
-#    Edit Init.lua, Core.lua, Config.lua — see CLAUDE.md for patterns
-
-# 4. Test locally
-ln -s "$(pwd)" "/path/to/WoW/_retail_/Interface/AddOns/MyAddonName"
-# /reload in-game
-
-# 5. Ship it
-git tag v1.0.0 && git push origin v1.0.0
-# GitHub Actions handles the rest
+curl -fsSL https://raw.githubusercontent.com/FRIKKern/Better-Addons-WoW-Template/main/setup.sh | bash -s -- "MyAddonName" "YourName"
 ```
+
+Then:
+
+```bash
+cd MyAddonName
+ln -s "$(pwd)" "/path/to/WoW/_retail_/Interface/AddOns/MyAddonName"
+# Code → /reload in-game → repeat
+git tag v1.0.0 && git push origin v1.0.0  # GitHub Actions ships it
+```
+
+<details>
+<summary>Alternative: manual clone + Claude Code rename</summary>
+
+```bash
+git clone https://github.com/FRIKKern/Better-Addons-WoW-Template.git MyAddonName
+cd MyAddonName
+# If you have Claude Code + better-addons plugin:
+/wow-setup MyAddonName "YourName" "Short description"
+# Or just run the setup script locally:
+bash setup.sh "MyAddonName" "YourName"
+```
+</details>
 
 ## What's Included
 
@@ -108,16 +115,32 @@ Update these in `MyAddon.toc` with your real project IDs:
 
 ## Claude Code Integration
 
-This template is designed for AI-assisted development with [Claude Code](https://claude.ai/claude-code) and the [better-addons](https://github.com/FRIKKern/better-addons) plugin.
+This template is designed for AI-assisted development with [Claude Code](https://claude.ai/claude-code) and the **better-addons** plugin.
+
+### Plugin Setup
+
+The plugin auto-activates when you open this repo in Claude Code (via `.claude/settings.local.json`). Or install manually:
+
+```bash
+claude plugin add better-addons
+```
+
+### Available Commands
+
+All commands come from the better-addons plugin except `/wow-setup` which is local to this template:
 
 | Command | What It Does |
 |---------|-------------|
-| `/wow-setup` | One-command rename — files, globals, TOC, all references |
+| `/wow-setup` | One-command rename — files, globals, TOC, all references *(local)* |
 | `/wow-create` | Generate a complete addon from a description |
 | `/wow-review` | Audit for deprecated APIs, taint risks, Secret Values issues |
 | `/wow-api` | Look up any WoW API function or event |
 | `/wow-debug` | Diagnose in-game errors and symptoms |
 | `/wow-migrate` | Update pre-12.0 code to Midnight compatibility |
+| `/wow-mode` | Set development philosophy (faithful, boundary, enhancement, perf) |
+| `/wow-news` | Latest WoW addon ecosystem news and developments |
+
+Commands also work with the `better-addons:` prefix (e.g., `/better-addons:wow-review`).
 
 The `CLAUDE.md` file teaches AI assistants the Midnight 12.0+ rules: which APIs are removed, how Secret Values work, and what patterns to follow. It works with Claude Code, Cursor (via `.cursorrules`), and any LLM that reads project context.
 

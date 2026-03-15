@@ -1,6 +1,6 @@
 Set up and rename a cloned WoW Midnight addon template: $ARGUMENTS
 
-Template repo: https://github.com/FRIKKern/WoW-Addon-Template
+Template repo: https://github.com/FRIKKern/Better-Addons-WoW-Template
 Clone it, then run `/wow-setup YourAddonName` from the repo root.
 
 ## Process

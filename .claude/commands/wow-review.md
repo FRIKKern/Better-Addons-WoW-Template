@@ -4,7 +4,7 @@ description: "Review WoW addon code for deprecated APIs, taint risks, Secret Val
 
 Review WoW addon code: $ARGUMENTS
 
-**Development Mode:** Before reviewing, read the project's `.claude/modes/active-mode.md` to determine the active mode (default: `enhancement-artist`), then read the mode definition from this plugin's `modes/{mode-name}.md` for mode-specific review criteria. If the project's `.claude/modes/` directory doesn't exist, use the default mode. The mode affects which patterns are considered correct vs. violations.
+**Development Mode:** Before reviewing, read the project's `.claude/modes/active-mode.md` to determine the active mode (default: `enhancement-artist`), then read the mode definition from `.claude/modes/{mode-name}.md` for mode-specific review criteria. If `.claude/modes/` doesn't exist, use the default mode. The mode affects which patterns are considered correct vs. violations.
 
 If the user includes a mode keyword in $ARGUMENTS (e.g., "review as **boundary-pusher**"), use that mode instead of the active mode.
 
@@ -58,9 +58,9 @@ If the addon processes combat data:
 ### 4. Pattern Violations (Severity: MEDIUM)
 
 Check for WoW addon best practices:
-- **Namespace pattern**: Uses `local ADDON_NAME, ns = ...`? No bare globals?
+- **Namespace pattern**: Uses `local addonName, ns = ...`? No bare globals?
 - **Event dispatch**: Uses table-based dispatch? Events unregistered when no longer needed?
-- **ADDON_LOADED**: Properly checks `addonName == ADDON_NAME`? Unregisters after init?
+- **ADDON_LOADED**: Properly checks `loadedAddon ~= addonName`? Unregisters after init?
 - **SavedVariables**: Initialized with defaults in ADDON_LOADED? Uses `or {}` pattern?
 - **Slash commands**: Registered properly with `SLASH_` prefix convention?
 - **Frame creation**: Uses `CreateFrame()` with proper parent? Not creating frames in tight loops?

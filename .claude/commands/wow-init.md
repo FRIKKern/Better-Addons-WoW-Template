@@ -1,10 +1,10 @@
 ---
-description: "Initialize a WoW addon project directory for use with the better-addons plugin"
+description: "Initialize a WoW addon project directory for addon development"
 ---
 
-Initialize a WoW addon project for use with better-addons: $ARGUMENTS
+Initialize a WoW addon project: $ARGUMENTS
 
-You set up a WoW addon project directory to work with the better-addons Claude Code plugin.
+You set up a WoW addon project directory to work with this template's Claude Code skills.
 
 ## What This Does
 
@@ -42,20 +42,18 @@ This is a WoW addon project targeting **Patch 12.0+ (Midnight)**.
 - **Secret Values:** All combat-related numeric data (health, damage, healing) may be opaque — never do arithmetic on potentially secret values
 - **Security model:** Use `hooksecurefunc()` for post-hooks, check `IsForbidden()` on hooked frames, defer secure frame changes out of combat with `InCombatLockdown()` checks
 
-## Plugin Commands
+## Available Commands
 
-This project uses the `better-addons` Claude Code plugin. Available commands:
-
-- `/better-addons:wow-create` — Create a complete addon from scratch
-- `/better-addons:wow-review` — Review addon code for bugs and compatibility
-- `/better-addons:wow-debug` — Debug addon issues
-- `/better-addons:wow-mode` — Switch development philosophy mode
-- `/better-addons:wow-migrate` — Migrate pre-12.0 code to Midnight
-- `/better-addons:wow-api` — Look up WoW API documentation
-- `/better-addons:wow-news` — Find latest WoW addon ecosystem news
-- `/better-addons:wow-research` — Research and verify WoW addon information
-- `/better-addons:wow-verify` — Verify addon code or API claims
-- `/better-addons:wow-init` — Re-run this initialization
+- `/wow-create` — Create a complete addon from scratch
+- `/wow-review` — Review addon code for bugs and compatibility
+- `/wow-debug` — Debug addon issues
+- `/wow-mode` — Switch development philosophy mode
+- `/wow-migrate` — Migrate pre-12.0 code to Midnight
+- `/wow-api` — Look up WoW API documentation
+- `/wow-news` — Find latest WoW addon ecosystem news
+- `/wow-research` — Research and verify WoW addon information
+- `/wow-verify` — Verify addon code or API claims
+- `/wow-init` — Re-run this initialization
 ```
 
 - **If yes:** Report that it already exists and skip creation
@@ -65,20 +63,20 @@ This project uses the `better-addons` Claude Code plugin. Available commands:
 Output the following welcome message (substitute the actual mode name):
 
 ```
-better-addons initialized!
+Template initialized!
 
 Current mode: {mode-name}
 
 Available commands:
-  /better-addons:wow-create   — Create a complete addon
-  /better-addons:wow-review   — Review addon code
-  /better-addons:wow-debug    — Debug addon issues
-  /better-addons:wow-mode     — Switch development philosophy
-  /better-addons:wow-migrate  — Migrate to Midnight 12.0
-  /better-addons:wow-api      — Look up WoW API docs
-  /better-addons:wow-news     — Latest addon ecosystem news
-  /better-addons:wow-research — Research & verify information
-  /better-addons:wow-verify   — Verify code or API claims
+  /wow-create   — Create a complete addon
+  /wow-review   — Review addon code
+  /wow-debug    — Debug addon issues
+  /wow-mode     — Switch development philosophy
+  /wow-migrate  — Migrate to Midnight 12.0
+  /wow-api      — Look up WoW API docs
+  /wow-news     — Latest addon ecosystem news
+  /wow-research — Research & verify information
+  /wow-verify   — Verify code or API claims
 
-Change mode: /better-addons:wow-mode faithful|boundary|enhance|performance
+Change mode: /wow-mode faithful|boundary|enhance|performance
 ```

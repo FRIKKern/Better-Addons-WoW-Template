@@ -42,14 +42,17 @@ Config.lua               # Settings API panel (checkboxes, sliders, dropdowns)
 CLAUDE.md                # AI instructions — deprecated APIs, Secret Values, patterns
 .cursorrules             # Cursor IDE instructions (same rules, compact format)
 Libs/embeds.xml          # Library loader (LibStub, CallbackHandler)
+setup.sh                 # Bootstrap script — clone + rename in one command
 .pkgmeta                 # BigWigsMods/packager config — externals, ignores, nolib
 .github/workflows/
   release.yml            # Tag push → lint → package → upload to 4 platforms
   lint.yml               # Luacheck on every push to main and every PR
+.claude/                 # Claude Code skills — 11 commands, 9 agents, 4 modes
 .luacheckrc              # WoW-aware Luacheck config with all globals declared
 .luarc.json              # Lua Language Server config (Lua 5.1, WoW builtins disabled)
 .vscode/                 # VS Code settings + recommended extensions
 .editorconfig            # Consistent formatting across editors
+.gitignore               # Ignores Libs/, .release/, IDE temp files
 LICENSE                  # MIT
 CHANGELOG.md             # Keep a Changelog format
 ```
@@ -68,7 +71,7 @@ git tag v1.0.0 → git push origin v1.0.0
               ┌──────────┴──────────┐
               │                     │
           Luacheck              Package
-        (lint gate)          BigWigsMods/packager@v2
+        (lint check)         BigWigsMods/packager@v2
               │                     │
               │              ┌──────┼──────┬──────────┐
               │              │      │      │          │

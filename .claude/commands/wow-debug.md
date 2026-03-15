@@ -60,7 +60,7 @@ Common errors:
 **Category F: Event Payload Changes**
 Symptoms: code worked in TWW/War Within but fails in Midnight
 Common errors:
-- CLEU handler getting secret values for damage/heal amounts
+- CLEU handler errors — `COMBAT_LOG_EVENT_UNFILTERED` was removed entirely in 12.0
 - UNIT_AURA handler getting secret aura data
 - Event arguments in different positions (API reshuffling)
 
@@ -170,4 +170,4 @@ If `$ARGUMENTS` includes a file path:
 - **"Addon doesn't load"** → TOC Interface version must be 120001.
 - **"Messages don't send"** → Communication lockdown. Queue and flush on ENCOUNTER_END.
 - **"Taint error in combat"** → Don't modify Blizzard frames in combat. Use SecureStateDriver.
-- **"CLEU handler returns nil/weird data"** → CLEU payloads are Secret Values in instances. Migrate to unit events.
+- **"CLEU handler returns nil/errors"** → `COMBAT_LOG_EVENT_UNFILTERED` was removed entirely in 12.0. Migrate to unit events (`UNIT_HEALTH`, `UNIT_AURA`, `UNIT_SPELLCAST_*`).

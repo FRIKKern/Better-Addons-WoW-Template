@@ -25,9 +25,9 @@ git tag v1.0.0 && git push origin v1.0.0  # GitHub Actions ships it
 ```bash
 git clone https://github.com/FRIKKern/Better-Addons-WoW-Template.git MyAddonName
 cd MyAddonName
-# If you have Claude Code + better-addons plugin:
+# With Claude Code:
 /wow-setup MyAddonName "YourName" "Short description"
-# Or just run the setup script locally:
+# Or run the setup script directly:
 bash setup.sh "MyAddonName" "YourName"
 ```
 </details>
@@ -115,32 +115,31 @@ Update these in `MyAddon.toc` with your real project IDs:
 
 ## Claude Code Integration
 
-This template is designed for AI-assisted development with [Claude Code](https://claude.ai/claude-code) and the **better-addons** plugin.
+All skills are built into this template — no plugin install required. Clone the repo, open [Claude Code](https://claude.ai/claude-code), and every command works immediately.
 
-### Plugin Setup
-
-The plugin auto-activates when you open this repo in Claude Code (via `.claude/settings.local.json`). Or install manually:
-
-```bash
-claude plugin add better-addons
-```
-
-### Available Commands
-
-All commands come from the better-addons plugin except `/wow-setup` which is local to this template:
+### Slash Commands
 
 | Command | What It Does |
 |---------|-------------|
-| `/wow-setup` | One-command rename — files, globals, TOC, all references *(local)* |
+| `/wow-setup` | One-command rename — files, globals, TOC, all references |
 | `/wow-create` | Generate a complete addon from a description |
 | `/wow-review` | Audit for deprecated APIs, taint risks, Secret Values issues |
 | `/wow-api` | Look up any WoW API function or event |
 | `/wow-debug` | Diagnose in-game errors and symptoms |
 | `/wow-migrate` | Update pre-12.0 code to Midnight compatibility |
 | `/wow-mode` | Set development philosophy (faithful, boundary, enhancement, perf) |
-| `/wow-news` | Latest WoW addon ecosystem news and developments |
+| `/wow-init` | Initialize a new addon project directory |
+| `/wow-news` | Latest WoW addon ecosystem news |
+| `/wow-research` | Research and verify API claims and patterns |
+| `/wow-verify` | Verify code snippets against the current live patch |
 
-Commands also work with the `better-addons:` prefix (e.g., `/better-addons:wow-review`).
+### Specialized Agents
+
+9 agents auto-activate for complex tasks: **Coder**, **Scaffold**, **Reviewer**, **Debugger**, **Migrator**, **Researcher**, **Generalist**, **Skin Designer**, **News Desk**.
+
+### Development Modes
+
+4 modes shape how Claude approaches your code: **Blizzard Faithful** (safe, spec-compliant), **Boundary Pusher** (experimental), **Enhancement Artist** (UI-focused), **Performance Zealot** (optimized). Switch with `/wow-mode`.
 
 The `CLAUDE.md` file teaches AI assistants the Midnight 12.0+ rules: which APIs are removed, how Secret Values work, and what patterns to follow. It works with Claude Code, Cursor (via `.cursorrules`), and any LLM that reads project context.
 
